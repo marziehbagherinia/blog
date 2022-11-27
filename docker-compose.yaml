@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  blog_app:
+    build:
+      context: .
+      dockerfile: ./.pro/dockerfile-app
+    container_name: blog_app
+    working_dir: /app
+    volumes:
+      - ./:/app
+
+  # safir_queue:
+  #     build: 
+  #       context: .
+  #       dockerfile: ./.pro/dockerfile-queue
+  #     container_name: safir-queue
+  #     working_dir: /app
+  #     volumes:
+  #         - ./:/app
+
+  blog_service:
+    build:
+      context: .
+      dockerfile: ./.pro/dockerfile-server
+    container_name: blog-service
+    working_dir: /app
+    ports:
+      - "8144:80"
+    volumes:
+      - ./:/app
+      - ./.pro/server-nginx.conf:/etc/nginx/conf.d/default.conf
+networks:
+  default:
+    external:
+      name: local_network

@@ -1,0 +1,4 @@
+FROM openresty/openresty:1.21.4.1-alpine-fat
+ENV TZ Asia/Tehran
+ENV PHP_FPM bar
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
