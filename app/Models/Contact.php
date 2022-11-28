@@ -2,21 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Company extends Model
+class Contact extends Model
 {
-//    use HasFactory;
+    use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'companies';
+    protected $table = 'contacts';
 
     protected $fillable = [
-            'name',
-            'email',
-            'address'
+        'first_name',
+        'last_name',
+        'address',
+        'phone'
     ];
 
 //    protected $appends = [
@@ -29,8 +30,8 @@ class Company extends Model
         'deleted_at'
     ];
 
-    public function contacts()
+    public function company()
     {
-        return $this->hasMany(Contact::class);
+        return $this->belongsTo(Company::class);
     }
 }
